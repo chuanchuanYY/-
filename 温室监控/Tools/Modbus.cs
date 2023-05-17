@@ -173,14 +173,22 @@ namespace 温室监控.Tools
             int databitStart = 3;
             int RegisterLen = 2;
             int j=0;
-            for (int i = databitStart; i < dataLenth*2; i+= RegisterLen)
+            try
             {
-                if (i >= bytes.Length) break;
-                result[j] =bytes[i];
-                result[j] <<= 8;
-                result[j] |= bytes[i + 1];
-                j++;
+                for (int i = databitStart; i < dataLenth * 2; i += RegisterLen)
+                {
+                    if (i >= bytes.Length) break;
+                    result[j] = bytes[i];
+                    result[j] <<= 8;
+                    result[j] |= bytes[i + 1];
+                    j++;
+                }
             }
+            catch (Exception)
+            {
+
+            }
+         
             return result;
         }
         /// <summary>
