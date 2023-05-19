@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.leftPanle = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_start = new HZH_Controls.Controls.UCBtnExt();
             this.cmb_serialPort = new System.Windows.Forms.ComboBox();
@@ -36,6 +38,15 @@
             this.Them1 = new HZH_Controls.Controls.UCThermometer();
             this.ucledNums1 = new HZH_Controls.Controls.UCLEDNums();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LEDSwtPanle = new System.Windows.Forms.Panel();
+            this.LEDSwt8 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt7 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt6 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt5 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt4 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt3 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt2 = new HZH_Controls.Controls.UCSwitch();
+            this.LEDSwt1 = new HZH_Controls.Controls.UCSwitch();
             this.LEDpanle = new System.Windows.Forms.Panel();
             this.mled7 = new 温室监控.Controls.mLED();
             this.mled6 = new 温室监控.Controls.mLED();
@@ -45,14 +56,6 @@
             this.mled2 = new 温室监控.Controls.mLED();
             this.mled1 = new 温室监控.Controls.mLED();
             this.LED1 = new 温室监控.Controls.mLED();
-            this.LEDSwt8 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt7 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt6 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt5 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt4 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt3 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt2 = new HZH_Controls.Controls.UCSwitch();
-            this.LEDSwt1 = new HZH_Controls.Controls.UCSwitch();
             this.Fanswt1 = new HZH_Controls.Controls.UCSwitch();
             this.label2 = new System.Windows.Forms.Label();
             this.ucWave1 = new HZH_Controls.Controls.UCWave();
@@ -61,18 +64,39 @@
             this.leftPanle.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.LEDSwtPanle.SuspendLayout();
             this.LEDpanle.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanle
             // 
             this.leftPanle.BackColor = System.Drawing.Color.White;
+            this.leftPanle.Controls.Add(this.label5);
+            this.leftPanle.Controls.Add(this.label4);
             this.leftPanle.Controls.Add(this.groupBox1);
             this.leftPanle.Dock = System.Windows.Forms.DockStyle.Left;
             this.leftPanle.Location = new System.Drawing.Point(0, 0);
             this.leftPanle.Name = "leftPanle";
             this.leftPanle.Size = new System.Drawing.Size(260, 673);
             this.leftPanle.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(102, 219);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "label4";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(26, 219);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 20);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "label4";
             // 
             // groupBox1
             // 
@@ -169,21 +193,149 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.LEDSwtPanle);
             this.groupBox2.Controls.Add(this.LEDpanle);
-            this.groupBox2.Controls.Add(this.LEDSwt8);
-            this.groupBox2.Controls.Add(this.LEDSwt7);
-            this.groupBox2.Controls.Add(this.LEDSwt6);
-            this.groupBox2.Controls.Add(this.LEDSwt5);
-            this.groupBox2.Controls.Add(this.LEDSwt4);
-            this.groupBox2.Controls.Add(this.LEDSwt3);
-            this.groupBox2.Controls.Add(this.LEDSwt2);
-            this.groupBox2.Controls.Add(this.LEDSwt1);
             this.groupBox2.Location = new System.Drawing.Point(513, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(737, 172);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "P2LED";
+            // 
+            // LEDSwtPanle
+            // 
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt8);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt7);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt6);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt5);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt4);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt3);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt2);
+            this.LEDSwtPanle.Controls.Add(this.LEDSwt1);
+            this.LEDSwtPanle.Location = new System.Drawing.Point(48, 118);
+            this.LEDSwtPanle.Name = "LEDSwtPanle";
+            this.LEDSwtPanle.Size = new System.Drawing.Size(683, 48);
+            this.LEDSwtPanle.TabIndex = 8;
+            // 
+            // LEDSwt8
+            // 
+            this.LEDSwt8.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt8.Checked = false;
+            this.LEDSwt8.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt8.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt8.Location = new System.Drawing.Point(614, 11);
+            this.LEDSwt8.Name = "LEDSwt8";
+            this.LEDSwt8.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt8.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt8.TabIndex = 4;
+            this.LEDSwt8.Texts = null;
+            this.LEDSwt8.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt8.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt7
+            // 
+            this.LEDSwt7.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt7.Checked = false;
+            this.LEDSwt7.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt7.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt7.Location = new System.Drawing.Point(543, 11);
+            this.LEDSwt7.Name = "LEDSwt7";
+            this.LEDSwt7.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt7.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt7.TabIndex = 5;
+            this.LEDSwt7.Texts = null;
+            this.LEDSwt7.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt7.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt6
+            // 
+            this.LEDSwt6.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt6.Checked = false;
+            this.LEDSwt6.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt6.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt6.Location = new System.Drawing.Point(455, 11);
+            this.LEDSwt6.Name = "LEDSwt6";
+            this.LEDSwt6.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt6.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt6.TabIndex = 6;
+            this.LEDSwt6.Texts = null;
+            this.LEDSwt6.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt6.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt5
+            // 
+            this.LEDSwt5.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt5.Checked = false;
+            this.LEDSwt5.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt5.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt5.Location = new System.Drawing.Point(367, 11);
+            this.LEDSwt5.Name = "LEDSwt5";
+            this.LEDSwt5.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt5.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt5.TabIndex = 7;
+            this.LEDSwt5.Texts = null;
+            this.LEDSwt5.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt5.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt4
+            // 
+            this.LEDSwt4.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt4.Checked = false;
+            this.LEDSwt4.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt4.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt4.Location = new System.Drawing.Point(279, 11);
+            this.LEDSwt4.Name = "LEDSwt4";
+            this.LEDSwt4.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt4.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt4.TabIndex = 8;
+            this.LEDSwt4.Texts = null;
+            this.LEDSwt4.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt4.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt3
+            // 
+            this.LEDSwt3.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt3.Checked = false;
+            this.LEDSwt3.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt3.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt3.Location = new System.Drawing.Point(191, 12);
+            this.LEDSwt3.Name = "LEDSwt3";
+            this.LEDSwt3.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt3.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt3.TabIndex = 9;
+            this.LEDSwt3.Texts = null;
+            this.LEDSwt3.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt3.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt2
+            // 
+            this.LEDSwt2.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt2.Checked = false;
+            this.LEDSwt2.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt2.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt2.Location = new System.Drawing.Point(103, 11);
+            this.LEDSwt2.Name = "LEDSwt2";
+            this.LEDSwt2.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt2.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt2.TabIndex = 10;
+            this.LEDSwt2.Texts = null;
+            this.LEDSwt2.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt2.TrueTextColr = System.Drawing.Color.White;
+            // 
+            // LEDSwt1
+            // 
+            this.LEDSwt1.BackColor = System.Drawing.Color.Transparent;
+            this.LEDSwt1.Checked = false;
+            this.LEDSwt1.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.LEDSwt1.FalseTextColr = System.Drawing.Color.White;
+            this.LEDSwt1.Location = new System.Drawing.Point(15, 11);
+            this.LEDSwt1.Name = "LEDSwt1";
+            this.LEDSwt1.Size = new System.Drawing.Size(53, 25);
+            this.LEDSwt1.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
+            this.LEDSwt1.TabIndex = 3;
+            this.LEDSwt1.Texts = null;
+            this.LEDSwt1.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
+            this.LEDSwt1.TrueTextColr = System.Drawing.Color.White;
             // 
             // LEDpanle
             // 
@@ -272,126 +424,6 @@
             this.LED1.Size = new System.Drawing.Size(57, 57);
             this.LED1.TabIndex = 11;
             // 
-            // LEDSwt8
-            // 
-            this.LEDSwt8.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt8.Checked = false;
-            this.LEDSwt8.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt8.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt8.Location = new System.Drawing.Point(660, 123);
-            this.LEDSwt8.Name = "LEDSwt8";
-            this.LEDSwt8.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt8.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt8.TabIndex = 2;
-            this.LEDSwt8.Texts = null;
-            this.LEDSwt8.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt8.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt7
-            // 
-            this.LEDSwt7.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt7.Checked = false;
-            this.LEDSwt7.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt7.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt7.Location = new System.Drawing.Point(589, 123);
-            this.LEDSwt7.Name = "LEDSwt7";
-            this.LEDSwt7.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt7.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt7.TabIndex = 2;
-            this.LEDSwt7.Texts = null;
-            this.LEDSwt7.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt7.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt6
-            // 
-            this.LEDSwt6.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt6.Checked = false;
-            this.LEDSwt6.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt6.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt6.Location = new System.Drawing.Point(501, 123);
-            this.LEDSwt6.Name = "LEDSwt6";
-            this.LEDSwt6.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt6.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt6.TabIndex = 2;
-            this.LEDSwt6.Texts = null;
-            this.LEDSwt6.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt6.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt5
-            // 
-            this.LEDSwt5.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt5.Checked = false;
-            this.LEDSwt5.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt5.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt5.Location = new System.Drawing.Point(413, 123);
-            this.LEDSwt5.Name = "LEDSwt5";
-            this.LEDSwt5.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt5.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt5.TabIndex = 2;
-            this.LEDSwt5.Texts = null;
-            this.LEDSwt5.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt5.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt4
-            // 
-            this.LEDSwt4.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt4.Checked = false;
-            this.LEDSwt4.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt4.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt4.Location = new System.Drawing.Point(325, 123);
-            this.LEDSwt4.Name = "LEDSwt4";
-            this.LEDSwt4.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt4.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt4.TabIndex = 2;
-            this.LEDSwt4.Texts = null;
-            this.LEDSwt4.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt4.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt3
-            // 
-            this.LEDSwt3.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt3.Checked = false;
-            this.LEDSwt3.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt3.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt3.Location = new System.Drawing.Point(237, 124);
-            this.LEDSwt3.Name = "LEDSwt3";
-            this.LEDSwt3.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt3.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt3.TabIndex = 2;
-            this.LEDSwt3.Texts = null;
-            this.LEDSwt3.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt3.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt2
-            // 
-            this.LEDSwt2.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt2.Checked = false;
-            this.LEDSwt2.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt2.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt2.Location = new System.Drawing.Point(149, 123);
-            this.LEDSwt2.Name = "LEDSwt2";
-            this.LEDSwt2.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt2.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt2.TabIndex = 2;
-            this.LEDSwt2.Texts = null;
-            this.LEDSwt2.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt2.TrueTextColr = System.Drawing.Color.White;
-            // 
-            // LEDSwt1
-            // 
-            this.LEDSwt1.BackColor = System.Drawing.Color.Transparent;
-            this.LEDSwt1.Checked = false;
-            this.LEDSwt1.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.LEDSwt1.FalseTextColr = System.Drawing.Color.White;
-            this.LEDSwt1.Location = new System.Drawing.Point(61, 123);
-            this.LEDSwt1.Name = "LEDSwt1";
-            this.LEDSwt1.Size = new System.Drawing.Size(53, 25);
-            this.LEDSwt1.SwitchType = HZH_Controls.Controls.SwitchType.Ellipse;
-            this.LEDSwt1.TabIndex = 0;
-            this.LEDSwt1.Texts = null;
-            this.LEDSwt1.TrueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
-            this.LEDSwt1.TrueTextColr = System.Drawing.Color.White;
-            // 
             // Fanswt1
             // 
             this.Fanswt1.BackColor = System.Drawing.Color.Transparent;
@@ -420,9 +452,9 @@
             // 
             // ucWave1
             // 
-            this.ucWave1.Location = new System.Drawing.Point(266, 548);
+            this.ucWave1.Location = new System.Drawing.Point(266, 635);
             this.ucWave1.Name = "ucWave1";
-            this.ucWave1.Size = new System.Drawing.Size(995, 125);
+            this.ucWave1.Size = new System.Drawing.Size(995, 38);
             this.ucWave1.TabIndex = 5;
             this.ucWave1.Text = "ucWave1";
             this.ucWave1.WaveColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
@@ -468,9 +500,11 @@
             this.Name = "Form1";
             this.Text = "温室监控";
             this.leftPanle.ResumeLayout(false);
+            this.leftPanle.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.LEDSwtPanle.ResumeLayout(false);
             this.LEDpanle.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -487,13 +521,6 @@
         private HZH_Controls.Controls.UCThermometer Them1;
         private HZH_Controls.Controls.UCLEDNums ucledNums1;
         private GroupBox groupBox2;
-        private HZH_Controls.Controls.UCSwitch LEDSwt7;
-        private HZH_Controls.Controls.UCSwitch LEDSwt6;
-        private HZH_Controls.Controls.UCSwitch LEDSwt5;
-        private HZH_Controls.Controls.UCSwitch LEDSwt4;
-        private HZH_Controls.Controls.UCSwitch LEDSwt3;
-        private HZH_Controls.Controls.UCSwitch LEDSwt2;
-        private HZH_Controls.Controls.UCSwitch LEDSwt1;
         private Panel LEDpanle;
         private Controls.mLED mled6;
         private Controls.mLED mled5;
@@ -505,9 +532,19 @@
         private Controls.mLED mled7;
         private HZH_Controls.Controls.UCSwitch Fanswt1;
         private Label label2;
-        private HZH_Controls.Controls.UCSwitch LEDSwt8;
         private HZH_Controls.Controls.UCWave ucWave1;
         private HZH_Controls.Controls.UCRotor ucRotor1;
         private Label label3;
+        private Label label5;
+        private Label label4;
+        private Panel LEDSwtPanle;
+        private HZH_Controls.Controls.UCSwitch LEDSwt8;
+        private HZH_Controls.Controls.UCSwitch LEDSwt7;
+        private HZH_Controls.Controls.UCSwitch LEDSwt6;
+        private HZH_Controls.Controls.UCSwitch LEDSwt5;
+        private HZH_Controls.Controls.UCSwitch LEDSwt4;
+        private HZH_Controls.Controls.UCSwitch LEDSwt3;
+        private HZH_Controls.Controls.UCSwitch LEDSwt2;
+        private HZH_Controls.Controls.UCSwitch LEDSwt1;
     }
 }

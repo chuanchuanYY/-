@@ -12,7 +12,7 @@ namespace 温室监控.Controls
 {
     public class mLED:UserControl
     {
-        private Graphics g;
+        private Graphics g=null!;
 
         private Color ledColor=Color.FromArgb(255,255,77,59);
         [Description("ELD颜色"), Category("自定义")]
@@ -20,6 +20,12 @@ namespace 温室监控.Controls
         {
             get { return ledColor; }
             set { this.ledColor = value;this.Invalidate(); }
+        }
+
+        public void isOpen(bool onOff, Color openColor)
+        {
+            if (onOff is true) LedColor = openColor;
+            else LedColor= Color.FromArgb(255, 224, 224, 224);
         }
         protected override void OnPaint(PaintEventArgs e)
         {

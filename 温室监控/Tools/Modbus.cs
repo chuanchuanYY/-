@@ -13,11 +13,21 @@ namespace 温室监控.Tools
     public class Modbus
     {
         private SerialPort serialPort;
+        private byte[] result=new byte[1024];//串口接收的字节数组
+        private IEnumerable<string> str=null!;//串口接收的字节数组转换为字符串的数组
+        private bool ReceivedFlag = false;
+        private System.Windows.Forms.Timer timer;
+        private bool isTimeOut = false;
+        private byte[] command = new byte[1024];
+        public bool isOpen
+        {
+            get { return serialPort.IsOpen; }
+        }
         public Modbus() 
         {
-           serialPort = new SerialPort();
+            serialPort = new SerialPort();
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 100;
+            timer.Interval = 150;
             timer.Enabled= true;
             timer.Tick += (_, _) => 
             {
@@ -25,7 +35,7 @@ namespace 温室监控.Tools
                 timer.Stop();
             };
         }
-        private byte[] command=new byte[1024];
+        
         public bool OpenConnet(string PortName,int BaudRate)
         {
             serialPort.PortName = PortName;
@@ -54,11 +64,7 @@ namespace 温室监控.Tools
             }
             return true;
         }
-        private byte[] result;//串口接收的字节数组
-        private IEnumerable<string> str;//串口接收的字节数组转换为字符串的数组
-        private bool ReceivedFlag = false;
-        private System.Windows.Forms.Timer timer;
-        private bool isTimeOut=false;
+     
 
 
         #region 接收数据 （接收报文）
@@ -73,18 +79,20 @@ namespace 温室监控.Tools
         #endregion
 
         #region 发送命令 （发送报文)
-        private void SendCommand(byte[] message)
+        private  Task SendCommand(byte[] message)
         {
-            if (!serialPort.IsOpen) return;
-            try
+            if (!serialPort.IsOpen) return null!;
             {
-                serialPort.Write(message, 0, message.Length);
+                try
+                {
+                    serialPort.Write(message, 0, message.Length);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
-            catch (Exception e)
-            {
-               MessageBox.Show(e.Message);
-            }
-           
+            return Task.CompletedTask;
         }
         //寄存器 register
 
@@ -123,21 +131,48 @@ namespace 温室监控.Tools
             //  await Task.Delay(100);
 
             var res= FillMessage(SalavAddr, 0x03, StartAddr, RegisterDataPort);
-            SendCommand(res);
+            await SendCommand(res);
             startAwaitReceived();
-            var RegisterValue = BytesToRegisterArrValue(result);
-            return  RegisterValue;
-
+            if(result.Length>=5)
+            if (result[1] == (byte)0x03)
+            {
+                var RegisterValue = BytesToRegisterArrValue(result);
+                return RegisterValue;
+            }
+            return  null!;
         }
         #endregion
 
-        #region 读输出状态 功能码 0x01
-        public async Task<IEnumerable<string>> ReadOutputStatus(byte SalavAddr, int StartAddr,int coils)
+        #region 读线圈输出状态 功能码 0x01
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SalavAddr"></param>
+        /// <param name="StartAddr"></param>
+        /// <param name="coils"></param>
+        /// <returns>返回线圈状态起始地址为0</returns>
+        public async Task<List<bool>> ReadOutputStatus(byte SalavAddr, int StartAddr,int coils)
         {
-            var message= FillMessage(0x01,0x01, StartAddr, coils);
-            SendCommand(message);
-           // await Task.Delay(100);
-            return str;
+             var message= FillMessage(SalavAddr, 0x01, StartAddr, coils);
+             await  SendCommand(message);
+             await Task.Delay(50);
+           // startAwaitReceived();
+            List<bool> coilsStatas= new List<bool>();
+            if (result is not null&&result.Length>=5)
+            {
+                if (result[1] == (byte)0x01)
+                {
+                    for (int i = 0; i < Convert.ToInt32(result[2]); i++)
+                    {
+                        for (int j = 0; j < 8; j++)
+                        {
+                            coilsStatas.Add((byte)((byte)((byte)(result[i + 3] >> j) << 7) >> 7) == (byte)0x01 ? true : false);//0000 0111
+                        }
+                    }
+                }
+            }
+          
+            return coilsStatas;
         }
         #endregion
 
@@ -145,8 +180,8 @@ namespace 温室监控.Tools
         public async Task<IEnumerable<string>> WriteCoils(byte SalavAddr, int CoilsAddr, ONOFF nOFF)
         {
             var message = FillMessage(SalavAddr, 0x05, CoilsAddr, nOFF);
-            SendCommand(message);
-
+             await SendCommand(message);
+            startAwaitReceived();
             //startAwaitReceived();
             // await Task.Delay(100);
             //timer.Start();
@@ -159,7 +194,7 @@ namespace 温室监控.Tools
             //    }
             //}
             //timer.Stop();
-        
+
             return str;
         }
         #endregion
@@ -167,7 +202,7 @@ namespace 温室监控.Tools
         #region modbus拓展方法
         public int[] BytesToRegisterArrValue(byte[] bytes)
         {
-            if (bytes is null || bytes.Length < 2) return null;
+            if (bytes is null || bytes.Length < 3) return null!;
             int dataLenth = (int)bytes[2];
             int[] result = new int[dataLenth/2];
             int databitStart = 3;
@@ -236,7 +271,7 @@ namespace 温室监控.Tools
             return message;
         }
 
-        private async void startAwaitReceived()
+        private  void startAwaitReceived()
         {
             timer.Start();
             while (ReceivedFlag is false)
@@ -248,7 +283,7 @@ namespace 温室监控.Tools
                 }
             }
             timer.Stop();
-            await Task.Delay(10);
+           
         }
         #endregion
 
@@ -277,6 +312,21 @@ namespace 温室监控.Tools
             CRC[1] = (byte)((wCrc & 0xFF00) >> 8);
             CRC[0] = (byte)(wCrc & 0x00FF);
             return CRC;
+        }
+
+        /// <summary>
+        /// 校验接收到的数据是否正确
+        /// </summary>
+        /// <param name="byteData"></param>
+        /// <returns>正确返回true</returns>
+        [DebuggerHidden]
+        private bool verifyReciveCRC(byte[] byteData)
+        {
+           var resCrc= CRC16(byteData);
+          if (resCrc[0] == byteData[byteData.Length - 2] && 
+                resCrc[1] == byteData[byteData.Length - 1] )
+                return true;
+          else return false;
         }
         #endregion
 

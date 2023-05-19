@@ -13,11 +13,12 @@ namespace 温室监控
         {
             InitializeComponent();
         }
-        private Modbus modbus;
-        private Timer timer;
+        private Modbus? modbus;
+        private Timer timer=null!;
         private int Them1Value;
         private List<mLED> mLEDs= new List<mLED>();
-        private event EventHandler OnReceiveValueChaned;
+        private List<UCSwitch> LedSwts = new List<UCSwitch>();
+        private event EventHandler? OnReceiveValueChaned;
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -33,16 +34,19 @@ namespace 温室监控
             modbus = new Modbus();
             timer = new Timer();
             timer.Enabled = false;
-            timer.Tick += async (_, _) =>
+            timer.Tick +=  (_, _) =>
             {
                 this.Invoke(new Action(async () => {
+                  
                     var registerValues = await modbus.readKeepRegister(01, 0000, 0001);
                     try
                     {
                         if (registerValues is not null && registerValues?.Length >= 1)
                         {
                             Them1Value = registerValues[0];
-                            Form1_OnReceiveValueChaned(this, new());
+                          //  Form1_OnReceiveValueChaned(this, new());
+                            if(OnReceiveValueChaned is not null)
+                            OnReceiveValueChaned(this,new());
                         }
                     }
                     catch (Exception)
@@ -67,7 +71,7 @@ namespace 温室监控
             Fanswt1.CheckedChanged +=async (_,_)=> 
             {
                 Fanswt1.Enabled= false;
-                await modbus.WriteCoils(0x01, 0008, Fanswt1.Checked ? Modbus.ONOFF.ON : Modbus.ONOFF.OFF);
+                await modbus!.WriteCoils(0x01, 0008, Fanswt1.Checked ? Modbus.ONOFF.ON : Modbus.ONOFF.OFF);
                 if (Fanswt1.Checked)
                 {
                     ucRotor1.RotorAround = RotorAround.Clockwise;
@@ -80,22 +84,30 @@ namespace 温室监控
             {
                 mLEDs.Add((mLED)LEDpanle.Controls[i]);
             }
+            //LEDSwtPanle
+            for (int i = LEDSwtPanle.Controls.Count - 1; i >= 0; i--)
+            {
+                LedSwts.Add((UCSwitch)LEDSwtPanle.Controls[i]);
+            }
         }
 
         private async void LEDSwt1_CheckedChanged(object? sender, EventArgs e)
         {
+            if ( modbus is  null&&modbus!.isOpen == false) return;
             var swt = sender as UCSwitch;
             swt!.Enabled = false;
             var colisAddr= SwitchNumber(swt!.Name);
             await  modbus.WriteCoils(0x01, colisAddr,swt.Checked?Modbus.ONOFF.ON:Modbus.ONOFF.OFF);
-            if (swt.Checked)
-            {
-                mLEDs[colisAddr].LedColor = Color.FromArgb(255, 255, 77, 59);
-            }
-            else
-            {
-                mLEDs[colisAddr].LedColor = Color.FromArgb(255, 224, 224, 224);
-            }
+            //if (swt.Checked)
+            //{
+            //    // mLEDs[colisAddr].LedColor = Color.FromArgb(255, 255, 77, 59);
+              
+            //}
+            //else
+            //{
+            //   // mLEDs[colisAddr].LedColor = Color.FromArgb(255, 224, 224, 224);
+            //}
+            mLEDs[colisAddr].isOpen(swt.Checked, Color.FromArgb(255, 255, 77, 59));
             swt.Enabled = true;
             
         }
@@ -119,15 +131,16 @@ namespace 温室监控
             ucledNums1.Value= Them1Value.ToString();
         }
 
-        private void btn_start_BtnClick(object sender, EventArgs e)
+        private  void btn_start_BtnClick(object sender, EventArgs e)
         {
             if (btn_start.BtnText.Trim().Equals("启动"))
             {
                 var port = cmb_serialPort.SelectedValue.ToString();
-                modbus.OpenConnet(port!, 4800);
+                modbus!.OpenConnet(port!, 4800);
                 btn_start.BtnText = "关闭";
                 btn_start.FillColor=Color.FromArgb(255,255,77,59);
 
+                initCoilsStat();
                 timer.Interval = 1000;
                 timer.Start();
             }
@@ -136,7 +149,27 @@ namespace 温室监控
                 btn_start.BtnText = "启动";
                 btn_start.FillColor = Color.FromArgb(255, 15, 35, 93);
                 timer.Stop();
-                modbus.CloseConnet();
+                modbus!.CloseConnet();
+            }
+        }
+
+        private async void initCoilsStat()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                var coilsStatus = await modbus!.ReadOutputStatus(0x01, 0000, 0009);
+                if (coilsStatus is not null && coilsStatus.Count >=9)
+                {
+                    label4.Text = coilsStatus[0].ToString();
+                    label5.Text = coilsStatus[1].ToString();
+                  
+                    for (int j = 0; j < 8; j++)
+                    {
+                        mLEDs[j].isOpen(coilsStatus[j], Color.FromArgb(255, 255, 77, 59));
+                        LedSwts[j].Checked = coilsStatus[j];
+                    }
+                    Fanswt1.Checked = coilsStatus[8];
+                }
             }
         }
     }
